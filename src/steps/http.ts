@@ -59,12 +59,12 @@ export type HTTPStep = {
 
 export type HTTPStepTRPC = {
   query?:
-    | {
-        [key: string]: object
-      }
-    | {
-        [key: string]: object
-      }[]
+  | {
+    [key: string]: object
+  }
+  | {
+    [key: string]: object
+  }[]
   mutation?: {
     [key: string]: object
   }
@@ -428,7 +428,7 @@ export default async function (
         Math.abs(
           new Date().valueOf() - new Date(sslCertificate.valid_to).valueOf()
         ) /
-          (24 * 60 * 60 * 1000)
+        (24 * 60 * 60 * 1000)
       ),
     }
   }
@@ -533,7 +533,11 @@ export default async function (
       try {
         const json = JSON.parse(body)
         for (const path in params.check.jsonpath) {
-          const result = JSONPath({ path, json, wrap: false })
+          // jsonpath by design returns single strings in arrays for [*].id or [?(@.id=='stc')].id (but not for [1].id);
+          // when adding arrays to workflow.yml it breaks all the testing, so unpack single array entries by default
+          let result = JSONPath({ path, json, wrap: false })
+          if (Array.isArray(result) && result.length == 1)
+            result = result[0]
           stepResult.checks.jsonpath[path] = checkResult(
             result,
             params.check.jsonpath[path]
