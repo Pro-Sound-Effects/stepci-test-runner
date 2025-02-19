@@ -17,7 +17,7 @@ import { parseCSV, TestData } from './utils/testdata'
 import { CapturesStorage, checkCondition, didChecksPass } from './utils/runner'
 import { CredentialsStorage } from './utils/auth'
 import runHTTPStep, { HTTPStep, HTTPStepRequest, HTTPStepResponse } from './steps/http'
-import runGRPCStep, { gRPCStep, gRPCStepRequest, gRPCStepResponse } from './steps/grpc'
+// import runGRPCStep, { gRPCStep, gRPCStepRequest, gRPCStepResponse } from './steps/grpc'
 import runSSEStep, { SSEStep, SSEStepRequest, SSEStepResponse } from './steps/sse'
 import runDelayStep from './steps/delay'
 import runPluginStep, { PluginStep } from './steps/plugin'
@@ -117,7 +117,7 @@ export type Step = {
   http?: HTTPStep
   trpc?: tRPCStep
   graphql?: GraphQLStep
-  grpc?: gRPCStep
+  // grpc?: gRPCStep
   sse?: SSEStep
   delay?: string
   plugin?: PluginStep
@@ -177,8 +177,8 @@ export type StepResult = {
 export type StepRunResult = {
   type?: string
   checks?: StepCheckResult
-  request?: HTTPStepRequest | gRPCStepRequest | SSEStepRequest | any
-  response?: HTTPStepResponse | gRPCStepResponse | SSEStepResponse | any
+  request?: HTTPStepRequest | SSEStepRequest | any
+  response?: HTTPStepResponse | SSEStepResponse | any
 }
 
 export type StepCheckResult = {
@@ -345,7 +345,7 @@ async function runTest(id: string, test: Test, schemaValidator: Ajv, options?: W
   return testResult
 }
 
-async function runStep (previous: StepResult | undefined, step: Step, id: string, test: Test, captures: CapturesStorage, cookies: CookieJar, schemaValidator: Ajv, testData: object, options?: WorkflowOptions, config?: WorkflowConfig, env?: object) {
+async function runStep(previous: StepResult | undefined, step: Step, id: string, test: Test, captures: CapturesStorage, cookies: CookieJar, schemaValidator: Ajv, testData: object, options?: WorkflowOptions, config?: WorkflowConfig, env?: object) {
   let stepResult: StepResult = {
     id: step.id,
     testId: id,
@@ -392,9 +392,9 @@ async function runStep (previous: StepResult | undefined, step: Step, id: string
         runResult = await runGraphQLStep(step.graphql, captures, cookies, schemaValidator, options, config)
       }
 
-      if (step.grpc) {
-        runResult = await runGRPCStep(step.grpc, captures, schemaValidator, options, config)
-      }
+      // if (step.grpc) {
+      //   runResult = await runGRPCStep(step.grpc, captures, schemaValidator, options, config)
+      // }
 
       if (step.sse) {
         runResult = await runSSEStep(step.sse, captures, schemaValidator, options, config)
