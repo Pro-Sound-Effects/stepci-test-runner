@@ -42,7 +42,6 @@
     "js-yaml": "^4.1.0",
     "jsonpath-plus": "^7.2.0",
     "liquidless": "^1.2.0",
-    "liquidless-faker": "^1.0.1",
     "liquidless-naughtystrings": "^1.0.0",
     "p-limit": "^3.1.0",
     "parse-duration": "^1.1.0",

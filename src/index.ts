@@ -1,6 +1,6 @@
 import { CookieJar, Cookie } from 'tough-cookie'
 import { renderObject as liquidlessRenderObject } from 'liquidless'
-import { fake } from 'liquidless-faker'
+import { fake } from './fakerwrapper'
 import { naughtystring } from 'liquidless-naughtystrings'
 import { EventEmitter } from 'node:events'
 import fs from 'fs'

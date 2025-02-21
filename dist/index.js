@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.run = exports.runFromFile = exports.runFromYAML = void 0;
 const tough_cookie_1 = require("tough-cookie");
 const liquidless_1 = require("liquidless");
-const liquidless_faker_1 = require("liquidless-faker");
+const fakerwrapper_1 = require("./fakerwrapper");
 const liquidless_naughtystrings_1 = require("liquidless-naughtystrings");
 const fs_1 = __importDefault(require("fs"));
 const js_yaml_1 = __importDefault(require("js-yaml"));
@@ -30,7 +30,7 @@ const templateDelimiters = ['${{', '}}'];
 function renderObject(object, props) {
     return (0, liquidless_1.renderObject)(object, props, {
         filters: {
-            fake: liquidless_faker_1.fake,
+            fake: fakerwrapper_1.fake,
             naughtystring: liquidless_naughtystrings_1.naughtystring
         },
         delimiters: templateDelimiters
