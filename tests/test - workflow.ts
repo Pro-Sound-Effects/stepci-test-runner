@@ -1,4 +1,4 @@
-import { runFromFile } from '../src/index'
+import { runFromFile } from '../dist/index'
 import { EventEmitter } from 'node:events'
 
 const ee = new EventEmitter()
